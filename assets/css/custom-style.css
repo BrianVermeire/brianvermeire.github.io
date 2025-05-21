@@ -87,7 +87,7 @@
 
 .navbar-nav .dropdown-item:hover,
 .navbar-nav .dropdown-item:focus {
-    background-color: #098dcf !important; 
+    background-color: #435373 !important; 
     color: #fff !important;
     text-decoration: none !important;
 }
@@ -116,7 +116,7 @@
 
 .areas-section-content {
     background-color: #fff;
-    border: 1px solid #098dcf;
+    border: 1px solid #435373;
     padding: 1.5rem;
     border-radius: 0.5rem;
 }
