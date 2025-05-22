@@ -142,7 +142,7 @@
 }
 
 .areas-section-content li::before {
-    content: "\f111"; 
+    content: "❍"; 
     font-family: 'Font Awesome 5 Free'; 
     font-weight: 900; 
     position: absolute;
