@@ -67,23 +67,57 @@ document.addEventListener("DOMContentLoaded", function () {
   const search = document.getElementById("accordion_search_bar");
   if (!search) return;
 
+  function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  }
+
   search.addEventListener("input", function (event) {
-    const term = event.target.value.trim().toLowerCase();
+    const term = event.target.value.trim();
+
+    if (term === "") {
+      document.querySelectorAll(".accordion-item").forEach((item) => {
+        const collapse = item.querySelector(".accordion-collapse");
+        const button = item.querySelector(".accordion-button");
+        item.style.display = "";
+        button.classList.add("collapsed");
+        button.setAttribute("aria-expanded", "false");
+        collapse.classList.remove("show");
+      });
+
+      document.querySelectorAll(".item.item-talk").forEach((item) => {
+        item.style.display = "";
+      });
+
+      return;
+    }
+
+    const searchRegex = new RegExp("\\b" + escapeRegExp(term), "i");
 
     document.querySelectorAll(".accordion-item").forEach((item) => {
-      const text = item.textContent.toLowerCase();
-
+      const text = item.textContent;
       const collapse = item.querySelector(".accordion-collapse");
       const button = item.querySelector(".accordion-button");
 
-      if (term !== "" && text.includes(term)) {
+      if (searchRegex.test(text)) {
+        item.style.display = "";
         button.classList.remove("collapsed");
         button.setAttribute("aria-expanded", "true");
         collapse.classList.add("show");
       } else {
+        item.style.display = "none";
         button.classList.add("collapsed");
         button.setAttribute("aria-expanded", "false");
         collapse.classList.remove("show");
+      }
+    });
+
+    document.querySelectorAll(".item.item-talk").forEach((item) => {
+      const text = item.textContent;
+
+      if (searchRegex.test(text)) {
+        item.style.display = "";
+      } else {
+        item.style.display = "none";
       }
     });
   });
